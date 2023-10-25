@@ -11,6 +11,7 @@ namespace LibrarySystem.EntityFrameworkCore
     {
         /* Define a DbSet for each entity of the application */
         public DbSet<Author> Authors { get; set; }
+        public DbSet<Book> Books { get; set; }
 
         public LibrarySystemDbContext(DbContextOptions<LibrarySystemDbContext> options)
             : base(options)
