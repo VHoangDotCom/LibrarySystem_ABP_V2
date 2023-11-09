@@ -52,4 +52,16 @@ namespace LibrarySystem.Managers.CloudFiles.Dtos
         public string FileBase64 { get; set; }
         public bool IsOverride { get; set; }
     }
+
+    [AutoMapTo(typeof(CloudFile))]
+    public class UpdatedCloudFileDto : EntityDto<long>
+    {
+        public string PublicId { get; set; }
+        public FileType FileType { get; set; }
+        public string ImageURL { get; set; }
+        public string FileBase64 { get; set; }
+        public bool IsOverride { get; set; }
+        public string FolderPath { get; set; }
+        public long FolderId { get; set; }
+    }
 }

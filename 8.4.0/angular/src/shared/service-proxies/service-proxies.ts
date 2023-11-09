@@ -29,7 +29,7 @@ export class AccountServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     isTenantAvailable(body: IsTenantAvailableInput | undefined): Observable<IsTenantAvailableOutput> {
@@ -85,7 +85,7 @@ export class AccountServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     register(body: RegisterInput | undefined): Observable<RegisterOutput> {
@@ -153,7 +153,7 @@ export class ConfigurationServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     changeUiTheme(body: ChangeUiThemeInput | undefined): Observable<void> {
@@ -217,7 +217,7 @@ export class RoleServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     create(body: CreateRoleDto | undefined): Observable<RoleDto> {
@@ -273,7 +273,7 @@ export class RoleServiceProxy {
     }
 
     /**
-     * @param permission (optional) 
+     * @param permission (optional)
      * @return Success
      */
     getRoles(permission: string | undefined): Observable<RoleListDtoListResultDto> {
@@ -329,7 +329,7 @@ export class RoleServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     update(body: RoleDto | undefined): Observable<RoleDto> {
@@ -385,7 +385,7 @@ export class RoleServiceProxy {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     delete(id: number | undefined): Observable<void> {
@@ -488,7 +488,7 @@ export class RoleServiceProxy {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     getRoleForEdit(id: number | undefined): Observable<GetRoleForEditOutput> {
@@ -544,7 +544,7 @@ export class RoleServiceProxy {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     get(id: number | undefined): Observable<RoleDto> {
@@ -600,9 +600,9 @@ export class RoleServiceProxy {
     }
 
     /**
-     * @param keyword (optional) 
-     * @param skipCount (optional) 
-     * @param maxResultCount (optional) 
+     * @param keyword (optional)
+     * @param skipCount (optional)
+     * @param maxResultCount (optional)
      * @return Success
      */
     getAll(keyword: string | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<RoleDtoPagedResultDto> {
@@ -741,7 +741,7 @@ export class TenantServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     create(body: CreateTenantDto | undefined): Observable<TenantDto> {
@@ -797,7 +797,7 @@ export class TenantServiceProxy {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     delete(id: number | undefined): Observable<void> {
@@ -849,7 +849,7 @@ export class TenantServiceProxy {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     get(id: number | undefined): Observable<TenantDto> {
@@ -905,10 +905,10 @@ export class TenantServiceProxy {
     }
 
     /**
-     * @param keyword (optional) 
-     * @param isActive (optional) 
-     * @param skipCount (optional) 
-     * @param maxResultCount (optional) 
+     * @param keyword (optional)
+     * @param isActive (optional)
+     * @param skipCount (optional)
+     * @param maxResultCount (optional)
      * @return Success
      */
     getAll(keyword: string | undefined, isActive: boolean | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<TenantDtoPagedResultDto> {
@@ -976,7 +976,7 @@ export class TenantServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     update(body: TenantDto | undefined): Observable<TenantDto> {
@@ -1044,7 +1044,7 @@ export class TokenAuthServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     authenticate(body: AuthenticateModel | undefined): Observable<AuthenticateResultModel> {
@@ -1112,7 +1112,7 @@ export class UserServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     create(body: CreateUserDto | undefined): Observable<UserDto> {
@@ -1168,7 +1168,7 @@ export class UserServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     update(body: UserDto | undefined): Observable<UserDto> {
@@ -1224,7 +1224,7 @@ export class UserServiceProxy {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     delete(id: number | undefined): Observable<void> {
@@ -1276,7 +1276,7 @@ export class UserServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     activate(body: Int64EntityDto | undefined): Observable<void> {
@@ -1328,7 +1328,7 @@ export class UserServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     deActivate(body: Int64EntityDto | undefined): Observable<void> {
@@ -1431,7 +1431,7 @@ export class UserServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     changeLanguage(body: ChangeUserLanguageDto | undefined): Observable<void> {
@@ -1483,7 +1483,7 @@ export class UserServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     changePassword(body: ChangePasswordDto | undefined): Observable<boolean> {
@@ -1528,7 +1528,7 @@ export class UserServiceProxy {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
                 result200 = resultData200 !== undefined ? resultData200 : <any>null;
-    
+
             return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
@@ -1540,7 +1540,7 @@ export class UserServiceProxy {
     }
 
     /**
-     * @param body (optional) 
+     * @param body (optional)
      * @return Success
      */
     resetPassword(body: ResetPasswordDto | undefined): Observable<boolean> {
@@ -1585,7 +1585,7 @@ export class UserServiceProxy {
             let result200: any = null;
             let resultData200 = _responseText === "" ? null : JSON.parse(_responseText, this.jsonParseReviver);
                 result200 = resultData200 !== undefined ? resultData200 : <any>null;
-    
+
             return _observableOf(result200);
             }));
         } else if (status !== 200 && status !== 204) {
@@ -1597,7 +1597,7 @@ export class UserServiceProxy {
     }
 
     /**
-     * @param id (optional) 
+     * @param id (optional)
      * @return Success
      */
     get(id: number | undefined): Observable<UserDto> {
@@ -1653,10 +1653,10 @@ export class UserServiceProxy {
     }
 
     /**
-     * @param keyword (optional) 
-     * @param isActive (optional) 
-     * @param skipCount (optional) 
-     * @param maxResultCount (optional) 
+     * @param keyword (optional)
+     * @param isActive (optional)
+     * @param skipCount (optional)
+     * @param maxResultCount (optional)
      * @return Success
      */
     getAll(keyword: string | undefined, isActive: boolean | undefined, skipCount: number | undefined, maxResultCount: number | undefined): Observable<UserDtoPagedResultDto> {
@@ -2160,6 +2160,11 @@ export class CreateUserDto implements ICreateUserDto {
     isActive: boolean;
     roleNames: string[] | undefined;
     password: string;
+    avatarFileType: number;
+    avatarBase64: string;
+    dOB: Date;
+    address: string;
+    job: number;
 
     constructor(data?: ICreateUserDto) {
         if (data) {
@@ -2183,6 +2188,11 @@ export class CreateUserDto implements ICreateUserDto {
                     this.roleNames.push(item);
             }
             this.password = _data["password"];
+            this.avatarFileType = _data["avatarFileType"];
+            this.avatarBase64 = _data["avatarBase64"];
+            this.dOB = _data["dOB"];
+            this.address = _data["address"];
+            this.job = _data["job"];
         }
     }
 
@@ -2206,6 +2216,10 @@ export class CreateUserDto implements ICreateUserDto {
                 data["roleNames"].push(item);
         }
         data["password"] = this.password;
+        data["avatarBase64"] = this.avatarBase64;
+        data["dOB"] = this.dOB;
+        data["address"] = this.address;
+        data["job"] = this.job;
         return data;
     }
 
@@ -3320,6 +3334,12 @@ export class UserDto implements IUserDto {
     lastLoginTime: moment.Moment | undefined;
     creationTime: moment.Moment;
     roleNames: string[] | undefined;
+    avatarFileType: number;
+    avatarBase64: string;
+    dOB: Date;
+    address: string;
+    job: number;
+    avatarPath: string;
 
     constructor(data?: IUserDto) {
         if (data) {
@@ -3346,6 +3366,12 @@ export class UserDto implements IUserDto {
                 for (let item of _data["roleNames"])
                     this.roleNames.push(item);
             }
+            this.avatarFileType = _data["avatarFileType"];
+            this.avatarBase64 = _data["avatarBase64"];
+            this.dOB = _data["dOB"];
+            this.address = _data["address"];
+            this.job = _data["job"];
+            this.avatarPath = _data["avatarPath"];
         }
     }
 
@@ -3372,6 +3398,11 @@ export class UserDto implements IUserDto {
             for (let item of this.roleNames)
                 data["roleNames"].push(item);
         }
+        data["avatarBase64"] = this.avatarBase64;
+        data["dOB"] = this.dOB;
+        data["address"] = this.address;
+        data["job"] = this.job;
+        data["avatarPath"] = this.avatarPath;
         return data;
     }
 
@@ -3394,6 +3425,12 @@ export interface IUserDto {
     lastLoginTime: moment.Moment | undefined;
     creationTime: moment.Moment;
     roleNames: string[] | undefined;
+    avatarFileType: number;
+    avatarBase64: string;
+    dOB: Date;
+    address: string;
+    job: number;
+    avatarPath: string;
 }
 
 export class UserDtoPagedResultDto implements IUserDtoPagedResultDto {

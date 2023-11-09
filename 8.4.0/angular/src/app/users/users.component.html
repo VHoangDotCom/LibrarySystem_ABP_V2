@@ -143,6 +143,7 @@
                                 <th>{{ "UserName" | localize }}</th>
                                 <th>{{ "FullName" | localize }}</th>
                                 <th>{{ "EmailAddress" | localize }}</th>
+                                <th>{{ "Avatar" | localize }}</th>
                                 <th>{{ "IsActive" | localize }}</th>
                                 <th style="width: 310px;">{{ "Actions" | localize }}</th>
                             </tr>
@@ -163,6 +164,7 @@
                                 <td>{{ user.userName }}</td>
                                 <td>{{ user.fullName }}</td>
                                 <td>{{ user.emailAddress }}</td>
+                                <td><img src="{{ user.avatarPath }}" alt="{{ user.userName }}" width="80" height="80"></td>
                                 <td>
                                     <div class="custom-control custom-checkbox">
                                         <input

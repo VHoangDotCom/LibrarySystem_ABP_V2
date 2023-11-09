@@ -117,5 +117,17 @@
     <text name="ResetPasswordStepOneInfo">1. Enter your administrator password</text>
     <text name="ResetPasswordStepTwoInfo">2. Copy this random password so you can send it to the user</text>
     <text name="UsersActivation">Users activation</text>
+
+    <!-- User -->
+    <text name="Avatar">Avatar</text>
+    <text name="AvatarPath">Avatar Path</text>
+    <text name="DOB">Date of Birth</text>
+    <text name="Address">Address</text>
+    <text name="Job">Job Type</text>
+    <!--End User -->
+
+    <!-- File -->
+    <text name="FileType">File Types</text>
+    <!-- End File -->
   </texts>
 </localizationDictionary>

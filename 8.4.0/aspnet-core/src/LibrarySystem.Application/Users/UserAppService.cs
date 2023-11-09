@@ -18,6 +18,12 @@ using LibrarySystem.Authorization;
 using LibrarySystem.Authorization.Accounts;
 using LibrarySystem.Authorization.Roles;
 using LibrarySystem.Authorization.Users;
+using LibrarySystem.CoreDependencies.IOC;
+using LibrarySystem.Entities;
+using LibrarySystem.Managers.CloudFiles;
+using LibrarySystem.Managers.CloudFiles.Dtos;
+using LibrarySystem.Managers.CloudFolders;
+using LibrarySystem.Managers.CloudFolders.Dtos;
 using LibrarySystem.Roles.Dto;
 using LibrarySystem.Users.Dto;
 using Microsoft.AspNetCore.Identity;
@@ -34,6 +40,9 @@ namespace LibrarySystem.Users
         private readonly IPasswordHasher<User> _passwordHasher;
         private readonly IAbpSession _abpSession;
         private readonly LogInManager _logInManager;
+        private readonly CloudFileManager _cloudFileManager;
+        private readonly CloudFolderManager _cloudFolderManager;
+        private readonly IWorkScope _workScope;
 
         public UserAppService(
             IRepository<User, long> repository,
@@ -42,7 +51,10 @@ namespace LibrarySystem.Users
             IRepository<Role> roleRepository,
             IPasswordHasher<User> passwordHasher,
             IAbpSession abpSession,
-            LogInManager logInManager)
+            LogInManager logInManager,
+            CloudFileManager cloudFileManager,
+            CloudFolderManager cloudFolderManager,
+            IWorkScope workScope)
             : base(repository)
         {
             _userManager = userManager;
@@ -51,6 +63,9 @@ namespace LibrarySystem.Users
             _passwordHasher = passwordHasher;
             _abpSession = abpSession;
             _logInManager = logInManager;
+            _cloudFileManager = cloudFileManager;
+            _cloudFolderManager = cloudFolderManager;
+            _workScope = workScope;
         }
 
         public override async Task<UserDto> CreateAsync(CreateUserDto input)
@@ -64,6 +79,10 @@ namespace LibrarySystem.Users
 
             await _userManager.InitializeOptionsAsync(AbpSession.TenantId);
 
+            var avatar = await UploadUserAvatar(input);
+
+            user.AvatarPath = avatar.ImageURL;
+
             CheckErrors(await _userManager.CreateAsync(user, input.Password));
 
             if (input.RoleNames != null)
@@ -76,11 +95,32 @@ namespace LibrarySystem.Users
             return MapToEntityDto(user);
         }
 
+        private async Task<CloudFileDto> UploadUserAvatar(CreateUserDto input)
+        {
+            var avatarFolder = await CreateUserAvatarFolder();
+
+            var avatarFile = new CreateCloudFileDto
+            {
+                PublicId = input.UserName,
+                FileType = (Constants.Enum.FileType)(input.AvatarFileType != null ? input.AvatarFileType : Constants.Enum.FileType.PNG),
+                FileBase64 = input.AvatarBase64,
+                IsOverride = true,
+                FolderId = avatarFolder != null ? avatarFolder.Id : 0,
+            };
+
+            return await _cloudFileManager.CreateAndUploadFile(avatarFile);
+        }
+
         public override async Task<UserDto> UpdateAsync(UserDto input)
         {
             CheckUpdatePermission();
 
             var user = await _userManager.GetUserByIdAsync(input.Id);
+
+            var avatar = await UpdateUserAvatar(input);
+
+            input.AvatarPath = avatar;
+            user.AvatarPath = avatar;
 
             MapToEntity(input, user);
 
@@ -92,6 +132,71 @@ namespace LibrarySystem.Users
             }
 
             return await GetAsync(input);
+        }
+
+        private async Task<string> UpdateUserAvatar(UserDto input)
+        {
+            var fileId = await _workScope.GetAll<CloudFile>()
+                .Where(x => x.PublicId == input.UserName)
+                .Select(x => x.Id)
+                .FirstOrDefaultAsync();
+
+            if(fileId == default)
+            {
+                var avatarFolder = await CreateUserAvatarFolder();
+
+                var avatarFile = new CreateCloudFileDto
+                {
+                    PublicId = input.UserName,
+                    FileType = (Constants.Enum.FileType)(input.AvatarFileType != null ? input.AvatarFileType : Constants.Enum.FileType.PNG),
+                    FileBase64 = input.AvatarBase64,
+                    IsOverride = true,
+                    FolderId = avatarFolder != null ? avatarFolder.Id : 0,
+                };
+
+                var avatarDto = await _cloudFileManager.CreateAndUploadFile(avatarFile);
+
+                return avatarDto.ImageURL;
+            } 
+            else
+            {
+                var updateFile = new UpdateCloudFileDto
+                {
+                    Id = fileId,
+                    FileType = (Constants.Enum.FileType)(input.AvatarFileType != null ? input.AvatarFileType : Constants.Enum.FileType.PNG),
+                    FileBase64 = input?.AvatarBase64,
+                    IsOverride = true,
+                };
+
+                var avatarDto = await _cloudFileManager.UpdateFile(updateFile);
+
+                return avatarDto.ImageURL;
+            }
+        }
+
+        private async Task<CloudFolder> CreateUserAvatarFolder()
+        {
+            var folderName = "UserAvatars";
+            var avatarFolder = await _workScope.GetAll<CloudFolder>()
+                .Where(x => x.Name.Trim().ToLower() == folderName.ToLower())
+                .FirstOrDefaultAsync();
+
+            if (avatarFolder == null)
+            {
+                var newFolderDto = new CreateCloudFolderDto
+                {
+                    Name = folderName,
+                    Code = "user_avatar",
+                    ParentId = null
+                };
+
+                await _cloudFolderManager.CreateFolder(newFolderDto);
+                avatarFolder = await _workScope.GetAll<CloudFolder>()
+                    .Where(x => x.Name.Trim().ToLower() == folderName.ToLower())
+                    .FirstOrDefaultAsync();
+            }
+
+            return avatarFolder;
         }
 
         public override async Task DeleteAsync(EntityDto<long> input)

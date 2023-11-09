@@ -14,6 +14,7 @@ import {
   RoleDto
 } from '@shared/service-proxies/service-proxies';
 import { AbpValidationError } from '@shared/components/validation/abp-validation.api';
+import { FILE_TYPE_ENUMS, FileOption, JOB_TYPE_ENUMS, JobTypeOption } from '@shared/AppEnums';
 
 @Component({
   templateUrl: './create-user-dialog.component.html'
@@ -23,6 +24,8 @@ export class CreateUserDialogComponent extends AppComponentBase
   saving = false;
   user = new CreateUserDto();
   roles: RoleDto[] = [];
+  fileTypes: FileOption[] = [];
+  jobTypes: JobTypeOption[] = [];
   checkedRolesMap: { [key: string]: boolean } = {};
   defaultRoleCheckedStatus = false;
   passwordValidationErrors: Partial<AbpValidationError>[] = [
@@ -55,6 +58,18 @@ export class CreateUserDialogComponent extends AppComponentBase
     this._userService.getRoles().subscribe((result) => {
       this.roles = result.items;
       this.setInitialRolesStatus();
+    });
+
+    Object.keys(FILE_TYPE_ENUMS).forEach((key) => {
+      if (!isNaN(Number(FILE_TYPE_ENUMS[key]))) {
+          this.fileTypes.push({ value: FILE_TYPE_ENUMS[key], name: key });
+      }
+    });
+
+    Object.keys(JOB_TYPE_ENUMS).forEach((key) => {
+      if (!isNaN(Number(JOB_TYPE_ENUMS[key]))) {
+          this.jobTypes.push({ value: JOB_TYPE_ENUMS[key], name: key });
+      }
     });
   }
 
@@ -101,5 +116,20 @@ export class CreateUserDialogComponent extends AppComponentBase
         this.saving = false;
       }
     );
+  }
+
+  onFileSelected(event: Event) {
+    const inputElement = event.target as HTMLInputElement;
+    if (inputElement.files && inputElement.files.length > 0) {
+      const selectedFile = inputElement.files[0];
+      const reader = new FileReader();
+
+      reader.onload = (e) => {
+        this.user.avatarBase64 = e.target.result as string;
+        document.getElementById('fileLocation').textContent = this.user.avatarBase64;
+      };
+
+      reader.readAsDataURL(selectedFile);
+    }
   }
 }

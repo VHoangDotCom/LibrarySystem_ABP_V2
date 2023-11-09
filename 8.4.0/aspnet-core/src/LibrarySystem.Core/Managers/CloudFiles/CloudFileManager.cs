@@ -171,7 +171,7 @@ namespace LibrarySystem.Managers.CloudFiles
             return fileDto;
         }
 
-        public async Task UpdateFile(UpdateCloudFileDto input)
+        public async Task<UpdatedCloudFileDto> UpdateFile(UpdateCloudFileDto input)
         {
             var existingFile = await _workScope.GetAll<CloudFile>()
                 .Where(x => x.Id == input.Id)
@@ -200,6 +200,21 @@ namespace LibrarySystem.Managers.CloudFiles
             existingFile.IsOverride = input.IsOverride;
 
             await _workScope.UpdateAsync<CloudFile>(existingFile);
+            CurrentUnitOfWork.SaveChanges();
+
+            var fileDto = new UpdatedCloudFileDto()
+            {
+                Id = existingFile.Id,
+                PublicId = existingFile.PublicId,
+                FileType = existingFile.FileType,
+                ImageURL = existingFile.ImageURL,
+                FileBase64 = existingFile.FileBase64,
+                IsOverride = existingFile.IsOverride,
+                FolderPath = existingFile.FolderPath,
+                FolderId = existingFile.FolderId
+            };
+
+            return fileDto;
         }
 
         public async Task<bool> DeleteFile(long id)

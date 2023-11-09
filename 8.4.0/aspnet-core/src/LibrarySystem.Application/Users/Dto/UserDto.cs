@@ -4,6 +4,7 @@ using Abp.Application.Services.Dto;
 using Abp.Authorization.Users;
 using Abp.AutoMapper;
 using LibrarySystem.Authorization.Users;
+using LibrarySystem.Constants.Enum;
 
 namespace LibrarySystem.Users.Dto
 {
@@ -36,5 +37,11 @@ namespace LibrarySystem.Users.Dto
         public DateTime CreationTime { get; set; }
 
         public string[] RoleNames { get; set; }
+        public string? AvatarPath { get; set; }
+        public DateTime? DOB { get; set; }
+        public JobType Job { get; set; }
+        public string Address { get; set; }
+        public FileType? AvatarFileType { get; set; }
+        public string AvatarBase64 { get; set; }
     }
 }

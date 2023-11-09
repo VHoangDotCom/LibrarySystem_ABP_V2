@@ -152,6 +152,81 @@
             ></abp-validation-summary>
           </div>
         </div>
+        <div class="form-group row required">
+          <label class="col-md-3 col-form-label" for="avatarPath">
+            {{ "AvatarPath" | localize }}
+          </label>
+          <div class="col-md-9">
+            <input
+              type="file"
+              class="form-control"
+              name="avatarPath"
+              id="avatarPath"
+              [(ngModel)]="user.avatarBase64"
+              #avatarPathModel="ngModel"
+              #avatarPathEl
+              (change)="onFileSelected($event)"
+            />
+            <abp-validation-summary
+              [control]="avatarPathModel"
+              [controlEl]="avatarPathEl"
+            ></abp-validation-summary>
+          </div>
+        </div>
+        <div class="form-group row required">
+          <label class="col-md-3 col-form-label" for="dOB">
+            {{ "DOB" | localize }}
+          </label>
+          <div class="col-md-9">
+            <input
+              type="date"
+              class="form-control"
+              name="dOB"
+              id="dOB"
+              [(ngModel)]="user.dOB"
+              #dOBModel="ngModel"
+              #dOBEl
+            />
+            <abp-validation-summary
+              [control]="dOBModel"
+              [controlEl]="dOBEl"
+            ></abp-validation-summary>
+          </div>
+        </div>
+        <div class="form-group row required">
+          <label class="col-md-3 col-form-label" for="address">
+            {{ "Address" | localize }}
+          </label>
+          <div class="col-md-9">
+            <input
+              type="text"
+              class="form-control"
+              name="address"
+              id="address"
+              [(ngModel)]="user.address"
+              #addressModel="ngModel"
+              #addressEl
+            />
+            <abp-validation-summary
+              [control]="addressModel"
+              [controlEl]="addressEl"
+            ></abp-validation-summary>
+          </div>
+        </div>
+        <div class="form-group row required">
+          <label class="col-md-3 col-form-label" for="job">
+            {{ "Job" | localize }}
+          </label>
+          <div class="col-md-9">
+            <select class="form-control" name="job" id="job" [(ngModel)]="user.job" #jobModel="ngModel" #jobEl>
+              <option *ngFor="let jobType of jobTypes" [value]="jobType.value">{{ jobType.name }}</option>
+            </select>
+            <abp-validation-summary
+              [control]="jobModel"
+              [controlEl]="jobEl"
+            ></abp-validation-summary>
+          </div>
+        </div>
         <div class="form-group row mb-0">
           <label class="col-md-3 col-form-label">
             {{ "IsActive" | localize }}

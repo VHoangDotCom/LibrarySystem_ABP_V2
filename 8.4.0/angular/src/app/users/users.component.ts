@@ -1,4 +1,4 @@
-import { Component, Injector } from '@angular/core';
+import { Component, OnInit, Injector } from '@angular/core';
 import { finalize } from 'rxjs/operators';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { appModuleAnimation } from '@shared/animations/routerTransition';
@@ -24,7 +24,7 @@ class PagedUsersRequestDto extends PagedRequestDto {
   templateUrl: './users.component.html',
   animations: [appModuleAnimation()]
 })
-export class UsersComponent extends PagedListingComponentBase<UserDto> {
+export class UsersComponent extends PagedListingComponentBase<UserDto>{
   users: UserDto[] = [];
   keyword = '';
   isActive: boolean | null;

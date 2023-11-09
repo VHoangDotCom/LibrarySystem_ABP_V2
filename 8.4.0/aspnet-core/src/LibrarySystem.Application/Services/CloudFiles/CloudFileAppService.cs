@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using LibrarySystem;
 using LibrarySystem.Services.CloudFiles;
 using Microsoft.AspNetCore.Mvc;
+using LibrarySystem.Entities;
 
 namespace LibrarySystem.Services.CloudFiles
 {
@@ -35,7 +36,7 @@ namespace LibrarySystem.Services.CloudFiles
         }
 
         [HttpPost]
-        public Task UpdateFile(UpdateCloudFileDto input)
+        public Task<UpdatedCloudFileDto> UpdateFile(UpdateCloudFileDto input)
         {
             return _cloudFileManager.UpdateFile(input);
         }
